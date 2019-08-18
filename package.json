@@ -1,0 +1,27 @@
+{
+  "name": "partyiser",
+  "version": "1.0.0",
+  "description": "Party Everything!",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node app.js"
+  },
+  "keywords": [],
+  "author": "Luke Ely <lukebenjaminely@gmail.com>",
+  "license": "MIT",
+  "dependencies": {
+    "body-parser": "^1.19.0",
+    "canvas": "^2.6.0",
+    "express": "^4.17.1",
+    "gifencoder": "^2.0.1",
+    "meow": "^5.0.0",
+    "multer": "^1.4.2"
+  },
+  "devDependencies": {
+    "eslint": "^5.10.0",
+    "eslint-config-airbnb-base": "^13.1.0",
+    "eslint-plugin-import": "^2.14.0",
+    "prettier-eslint": "^8.8.2"
+  }
+}
