@@ -34,7 +34,7 @@ const convert = (srcImage, destination, callBack = () => {}) => loadImage(srcIma
   const encoder = new GIFEncoder(w, h)
   const writeStream = fs.createWriteStream(destination)
   writeStream.on('close', () => {
-    callBack(path.resolve(srcImage), path.resolve(destination))
+    callBack(path.resolve(srcImage))
   })
   encoder.createReadStream().pipe(writeStream)
 
@@ -42,7 +42,7 @@ const convert = (srcImage, destination, callBack = () => {}) => loadImage(srcIma
   encoder.setRepeat(0)
   encoder.setDelay(50)
   encoder.setQuality(10)
-  // encoder.setTransparent('#00000000')
+  encoder.setTransparent('#00000000')
 
   PARROT_COLORS.forEach((colour) => {
     const canvas = createCanvas(w, h)
