@@ -72,9 +72,15 @@ app.get('/image/:id', (req, res) => {
 
 const returnFile = (res, filename) => (srcPath) => {
   fs.unlinkSync(srcPath)
-  res.send({
-    url: `/image/${filename}.gif`,
-  })
+  if (process.env.CURRENT_URL) {
+    res.send({
+      url: `${process.env.CURRENT_URL}image/${filename}.gif`,
+    })
+  } else {
+    res.send({
+      url: `/image/${filename}.gif`,
+    })
+  }
 }
 
 const resolver = (req, res) => {
