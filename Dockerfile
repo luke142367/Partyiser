@@ -17,4 +17,6 @@ COPY . .
 
 ENV NODE_ENV=production
 
+RUN mkdir -p results uploads
+
 CMD [ "npm", "start" ]
