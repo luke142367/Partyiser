@@ -88,7 +88,8 @@ const returnFile = (res, filename) => (srcPath) => {
 
 const resolver = (req, res) => {
   const name = req.file.filename
-  convert(`uploads/${name}`, `results/${name}.gif`, returnFile(res, name))
+  const trans = req.query.trans || ''
+  convert(`uploads/${name}`, `results/${name}.gif`, returnFile(res, name), trans)
 }
 
 app.post('/convert', upload.single('image'), resolver)

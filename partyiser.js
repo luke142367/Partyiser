@@ -27,7 +27,7 @@ const PARROT_COLORS = [
   '#FD8E8D',
 ]
 
-const convert = (srcImage, destination, callBack = () => {}) => loadImage(srcImage).then((img) => {
+const convert = (srcImage, destination, callBack = () => {}, trans = '') => loadImage(srcImage).then((img) => {
   const w = img.width
   const h = img.height
 
@@ -42,7 +42,10 @@ const convert = (srcImage, destination, callBack = () => {}) => loadImage(srcIma
   encoder.setRepeat(0)
   encoder.setDelay(50)
   encoder.setQuality(10)
-  encoder.setTransparent('#00000000')
+
+  if (trans) {
+    encoder.setTransparent(trans)
+  }
 
   PARROT_COLORS.forEach((colour) => {
     const canvas = createCanvas(w, h)
