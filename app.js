@@ -84,7 +84,7 @@ const resolver = (req, res) => {
 
 app.post('/convert', upload.single('image'), resolver)
 
-app.listen(port, () => console.log('listening on port', port))
+app.listen(process.env.PORT || port, () => console.log('listening on port', process.env.PORT || port))
 
 deleteAllFilesOlder(path.resolve('results'), purgeDelay)()
 setInterval(deleteAllFilesOlder(path.resolve('results'), purgeDelay), purgeDelayMS)
