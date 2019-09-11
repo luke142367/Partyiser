@@ -70,7 +70,12 @@ app.delete('/admin/files', (req, res) => {
 
 app.get('/image/:id', (req, res) => {
   const { id } = req.params
-  res.sendFile(path.resolve(`results/${id}`))
+  const { download } = req.query
+  if (download) {
+    res.download(path.resolve(`results/${id}`))
+  } else {
+    res.sendFile(path.resolve(`results/${id}`))
+  }
 })
 
 const returnFile = (res, filename) => (srcPath) => {
