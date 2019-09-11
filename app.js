@@ -72,7 +72,7 @@ app.get('/image/:id', (req, res) => {
   const { id } = req.params
   const { download } = req.query
   if (download) {
-    res.download(path.resolve(`results/${id}`))
+    res.download(path.resolve(`results/${id}`), 'party.gif')
   } else {
     res.sendFile(path.resolve(`results/${id}`))
   }
