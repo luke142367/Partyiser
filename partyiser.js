@@ -27,40 +27,41 @@ const PARROT_COLORS = [
   '#FD8E8D',
 ]
 
-const convert = (srcImage, destination, callBack = () => {}, trans = '') => loadImage(srcImage).then((img) => {
-  const w = img.width
-  const h = img.height
+const convert = (srcImage, destination, callBack = () => {}, trans) => loadImage(srcImage)
+  .then((img) => {
+    const w = img.width
+    const h = img.height
 
-  const encoder = new GIFEncoder(w, h)
-  const writeStream = fs.createWriteStream(destination)
-  writeStream.on('close', () => {
-    callBack(path.resolve(srcImage))
+    const encoder = new GIFEncoder(w, h)
+    const writeStream = fs.createWriteStream(destination)
+    writeStream.on('close', () => {
+      callBack(path.resolve(srcImage))
+    })
+    encoder.createReadStream().pipe(writeStream)
+
+    encoder.start()
+    encoder.setRepeat(0)
+    encoder.setDelay(50)
+    encoder.setQuality(10)
+
+    if (trans) {
+      encoder.setTransparent('#00000000')
+    }
+
+    PARROT_COLORS.forEach((colour) => {
+      const canvas = createCanvas(w, h)
+      const ctx = canvas.getContext('2d')
+      ctx.clearRect(0, 0, w, h)
+      ctx.drawImage(img, 0, 0)
+      ctx.globalCompositeOperation = 'source-atop'
+      ctx.fillStyle = colour
+      ctx.globalAlpha = 0.5
+      ctx.fillRect(0, 0, w, h)
+      encoder.addFrame(ctx)
+    })
+
+    encoder.finish()
   })
-  encoder.createReadStream().pipe(writeStream)
-
-  encoder.start()
-  encoder.setRepeat(0)
-  encoder.setDelay(50)
-  encoder.setQuality(10)
-
-  if (trans) {
-    encoder.setTransparent(trans)
-  }
-
-  PARROT_COLORS.forEach((colour) => {
-    const canvas = createCanvas(w, h)
-    const ctx = canvas.getContext('2d')
-    ctx.clearRect(0, 0, w, h)
-    ctx.drawImage(img, 0, 0)
-    ctx.globalCompositeOperation = 'source-atop'
-    ctx.fillStyle = colour
-    ctx.globalAlpha = 0.5
-    ctx.fillRect(0, 0, w, h)
-    encoder.addFrame(ctx)
-  })
-
-  encoder.finish()
-})
 
 
 const cli = meow(
