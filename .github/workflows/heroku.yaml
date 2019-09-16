@@ -8,6 +8,12 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@master
+    - name: Install Dev
+      uses: actions/npm@1.0.0
+      with:
+        args: install --only=dev
+    - name: Lint
+      uses: stefanoeb/eslint-action@1.0.0
     - name: login
       uses: actions/heroku@master
       env:
