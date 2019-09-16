@@ -13,9 +13,9 @@ RUN npm install
 #RUN npm ci --only=production
 
 # Bundle app source
-COPY . .
-
 ENV NODE_ENV=production
+
+COPY . .
 
 RUN mkdir -p results uploads
 
