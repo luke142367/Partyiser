@@ -94,7 +94,7 @@ const returnFile = (res, filename) => (srcPath) => {
 const resolver = (req, res) => {
   const name = req.file.filename
   let trans = false
-  if (req.query.trans && req.query.trans.toLowerCase !== 'false') {
+  if (req.query.trans && req.query.trans.toLowerCase() !== 'false') {
     trans = true
   }
   convert(`uploads/${name}`, `results/${name}.gif`, returnFile(res, name), trans)
