@@ -6,13 +6,13 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 var path_1 = __importDefault(require("path"));
 var canvas_1 = require("canvas");
+var fs_1 = __importDefault(require("fs"));
+var meow_1 = __importDefault(require("meow"));
+var gifencoder_1 = __importDefault(require("gifencoder"));
 /**
  * @file
  * This turns any PNG into a Party Parrot gif.
  */
-var fs_1 = __importDefault(require("fs"));
-var meow_1 = __importDefault(require("meow"));
-var GIFEncoder = require('gifencoder');
 var PARROT_COLORS = [
     '#FDD58E',
     '#8CFD8E',
@@ -31,7 +31,7 @@ var convert = function (srcImage, destination, callBack, trans) {
     return canvas_1.loadImage(srcImage).then(function (img) {
         var w = img.width;
         var h = img.height;
-        var encoder = new GIFEncoder(w, h);
+        var encoder = new gifencoder_1.default(w, h);
         var writeStream = fs_1.default.createWriteStream(destination);
         writeStream.on('close', function () {
             callBack(path_1.default.resolve(srcImage));

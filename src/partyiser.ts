@@ -2,6 +2,9 @@
 
 import path from 'path'
 import { createCanvas, loadImage } from 'canvas'
+import fs from 'fs'
+import meow from 'meow'
+import GIFEncoder from 'gifencoder'
 
 
 /**
@@ -9,11 +12,6 @@ import { createCanvas, loadImage } from 'canvas'
  * This turns any PNG into a Party Parrot gif.
  */
 
-import fs from 'fs'
-
-import meow from 'meow'
-
-const GIFEncoder = require('gifencoder')
 
 const PARROT_COLORS = [
   '#FDD58E',
