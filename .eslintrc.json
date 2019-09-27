@@ -11,9 +11,13 @@
         "Atomics": "readonly",
         "SharedArrayBuffer": "readonly"
     },
+    "parser": "@typescript-eslint/parser",
     "parserOptions": {
         "ecmaVersion": 2018
     },
     "rules": {
+        "no-restricted-syntax": 0,
+        "no-console": 0,
+        "semi":"off"
     }
 }

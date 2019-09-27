@@ -1,10 +1,11 @@
-const express = require('express')
-const bodyParser = require('body-parser')
-const multer = require('multer')
-const fs = require('fs')
-const path = require('path')
-const cors = require('cors')
-const convert = require('./partyiser')
+
+import express from 'express'
+import bodyParser from 'body-parser'
+import multer from 'multer'
+import fs from 'fs'
+import path from 'path'
+import cors from 'cors'
+import convert from './partyiser'
 
 const app = express()
 
@@ -20,13 +21,13 @@ const upload = multer({
   },
 })
 
-const calculatePreviousDate = (minsAgo) => {
+const calculatePreviousDate = (minsAgo : number) : Date => {
   const now = new Date()
   const mills = minsAgo * 60 * 1000
   return new Date(now.valueOf() - mills)
 }
 
-const deleteAllFilesOlder = (dir, age) => () => {
+const deleteAllFilesOlder = (dir : string, age : number) => () => {
   console.log('Purging files')
   const files = fs.readdirSync(dir)
   const cutoff = calculatePreviousDate(age)
@@ -38,7 +39,7 @@ const deleteAllFilesOlder = (dir, age) => () => {
   })
 }
 
-const deleteAllFiles = (dir) => {
+const deleteAllFiles = (dir : string) => {
   const files = fs.readdirSync(dir)
   files.forEach((file) => {
     fs.unlink(path.join(dir, file), () => {})
@@ -78,7 +79,7 @@ app.get('/image/:id', (req, res) => {
   }
 })
 
-const returnFile = (res, filename) => (srcPath) => {
+const returnFile = (res : express.Response, filename : string) => (srcPath : string) => {
   fs.unlinkSync(srcPath)
   if (process.env.CURRENT_URL) {
     res.send({
@@ -91,7 +92,7 @@ const returnFile = (res, filename) => (srcPath) => {
   }
 }
 
-const resolver = (req, res) => {
+const resolver : express.Handler = (req, res) => {
   const name = req.file.filename
   let trans = false
   if (req.query.trans && req.query.trans.toLowerCase() !== 'false') {
