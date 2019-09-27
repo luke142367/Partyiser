@@ -18,6 +18,16 @@
     "rules": {
         "no-restricted-syntax": 0,
         "no-console": 0,
-        "semi":"off"
+        "semi": [2, "never"]
+    },
+    "settings": {
+        "import/resolver": {
+            "node": {
+                "extensions": [
+                    ".js",
+                    ".ts"
+                ]
+            }
+        }
     }
 }
